@@ -223,9 +223,11 @@ const loadModalItems = (menu) => {
             button.appendChild(document.createTextNode("Delete"));
             button.classList.add("deleteButton")
             button.addEventListener('click', () => {
-                const newMenu = removeFromMenu(menu, item);
-                sessionStorage.setItem("pizza", JSON.stringify(newMenu));
-                modal.removeChild(div);
+                if (confirm("are you sure you want to delete")) {
+                    const newMenu = removeFromMenu(menu, item);
+                    sessionStorage.setItem("pizza", JSON.stringify(newMenu));
+                    modal.removeChild(div);
+                }
             })
             div.appendChild(document.createElement('br'));
             div.appendChild(button);

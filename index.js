@@ -17,8 +17,12 @@ var modalCloseButton = document.getElementById("modalCloseButton");
 var pizzaMenuModal = document.getElementById("pizzaMenuModal");
 
 let selectedChiliLevel = null;
-let pictureSource = "./photos/pizzas/1.jpg";
+let pictureSource = "./photos/pizzas/1.png";
 
+//price input
+price.onchange = (event) => {
+    event.target.value = parseFloat(event.target.value).toFixed(2);
+}
 //handeling submit pizza
 const onClickSubmit = () => {
     if (pizzaName.value == '') {
@@ -29,11 +33,17 @@ const onClickSubmit = () => {
         alert("Enter price");
         return;
     }
+
     let createdToppings = document.querySelectorAll('li');
     let allTopings = []
     createdToppings.forEach(item => {
         allTopings.push(item.textContent);
     })
+
+    if (allTopings.length < 2) {
+        alert(`Enter ${2 - allTopings.length} more toppings`)
+        return
+    }
     const pizza = {
         name: pizzaName.value,
         price: price.value,
@@ -117,8 +127,8 @@ addToppingsButton.addEventListener('click', () => {
 //chaning picture
 let currentPicture = 1;
 const setPizzaPhoto = (currentPhoto) = () => {
-    pictureSource = `./photos/pizzas/${currentPicture}.jpg`;
-    pizzaPicture.src = `./photos/pizzas/${currentPicture}.jpg`;
+    pictureSource = `./photos/pizzas/${currentPicture}.png`;
+    pizzaPicture.src = `./photos/pizzas/${currentPicture}.png`;
 }
 backButton.addEventListener('click', () => {
     if (currentPicture > 1) {
@@ -146,9 +156,41 @@ nextButton.addEventListener('click', () => {
 modal.onclick = (event) => {
     event.stopPropagation();
 }
-const openModal = () => {
-    modal.classList.add('modalOpen');
+const createRadio = (type, inputDiv) => {
+    let input = document.createElement('button');
+    input.value = type;
+    input.name = "sort";
+    input.type = 'button';
+    inputDiv.appendChild(input);
+    input.addEventListener('click', ((e) => {
+        const menu = sortBy(type);
+        modal.innerHTML = '';
+        loadModalItems(menu)
+    }))
+    input.appendChild(document.createTextNode(`Sort By ${type}`));
+}
+const sortBy = (sortBy) => {
     let menu = JSON.parse(sessionStorage.getItem("pizza"));
+    menu.sort((a, b) => {
+        return (a[sortBy] > b[sortBy]) ? 1 : -1;
+    })
+    return menu;
+}
+const loadModalItems = (menu) => {
+    //close Button
+    let closeButton = document.createElement('button');
+    closeButton.appendChild(document.createTextNode("Close"));
+    closeButton.classList.add("modalCloseButton");
+    closeButton.addEventListener('click', closeModal);
+    modal.appendChild(closeButton);
+    //sort
+    let inputDiv = document.createElement('div');
+    createRadio("name", inputDiv);
+    createRadio("price", inputDiv);
+    createRadio("hotLevel", inputDiv);
+    inputDiv.classList.add('radio');
+    modal.appendChild(inputDiv);
+    //Menu Items
     if (menu !== null) {
         menu.forEach(item => {
             let div = document.createElement('div');
@@ -166,30 +208,50 @@ const openModal = () => {
             divText.appendChild(document.createElement('br'));
             divText.classList.add("pizzaMenuModalItemText");
             div.appendChild(divText);
-            console.log(item.img);
             let img = document.createElement('img');
             img.src = item.img;
             img.classList.add("pizzaMenuModalImage")
             div.appendChild(img);
             div.appendChild(document.createElement('br'));
-            let hotLevel = document.createElement('img');
-            hotLevel.src = `./photos/chili${item.hotLevel}.png`
-            hotLevel.classList.add("pizzaMenuModalSpice")
-            div.appendChild(hotLevel);
+            if (item.hotLevel != null) {
+                let hotLevel = document.createElement('img');
+                hotLevel.src = `./photos/chili${item.hotLevel}.png`
+                hotLevel.classList.add("pizzaMenuModalSpice")
+                div.appendChild(hotLevel);
+            }
+            let button = document.createElement('button');
+            button.appendChild(document.createTextNode("Delete"));
+            button.classList.add("deleteButton")
+            button.addEventListener('click', () => {
+                const newMenu = removeFromMenu(menu, item);
+                sessionStorage.setItem("pizza", JSON.stringify(newMenu));
+                modal.removeChild(div);
+            })
+            div.appendChild(document.createElement('br'));
+            div.appendChild(button);
             div.classList.add("pizzaMenuModalItem");
             modal.appendChild(div);
         })
     }
 }
+const openModal = () => {
+    modal.classList.add('modalOpen');
+    let menu = JSON.parse(sessionStorage.getItem("pizza"));
+    loadModalItems(menu);
+}
+
+const removeFromMenu = (menu, item) => {
+    const newMenu = menu.filter(menuItem => {
+        return menuItem != item;
+    })
+    return newMenu;
+}
 const closeModal = () => {
     modal.classList.remove('modalOpen');
+    modal.innerHTML = '';
 }
 modalOpenButton.addEventListener("click", (event) => {
     openModal();
     event.stopPropagation();
     window.addEventListener('click', closeModal);
-})
-modalCloseButton.addEventListener("click", () => {
-    closeModal();
-    window.removeEventListener('click', closeModal);
 })

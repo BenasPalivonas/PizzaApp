@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visma Homework</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <h1>Add a pizza
+        <button id="modalOpenButton" class="modalOpenButton">Open Menu</button>
+    </h1>
+
+    <div id="form">
+
+        <div class="pizza" id="pizza"></div>
+        <div class="pizza" id="pizza2"></div>
+        <form>
+            <div>
+                <label>Pizza name</label>
+                <input type="text" id="pizzaName" placeholder="Enter pizza name" maxlength="30" />
+            </div>
+
+            <div>
+                <label>Price</label>
+                <input name="x" min='.01' placeholder="000.00" type="number" id="price" />
+            </div>
+            <label>Heat</label>
+            <div class="heatForm">
+                <div id="oneChili">
+                    <img src="./photos/chili1.png">
+                </div>
+                <div id="twoChili">
+                    <img src="./photos/chili2.png">
+                </div>
+                <div id="threeChili">
+                    <img src="./photos/chili3.png">
+                </div>
+            </div>
+            <div class="clearButton">
+                <img id="clearButton" src="./photos/none.png" alt="">
+            </div>
+            <div class="Toppings">
+                <label class="Toppings">Toppings</label>
+                <input type="text" id="topping" placeholder="Enter the topping" />
+                <ul id="toppings">
+
+                </ul>
+                <button type="button" class="addToppings" id="addToppingButton">Add topping</button>
+            </div>
+            <div class="picture">
+                <label class="Toppings">Picture</label>
+                <img id="pizzaPicture" src="./photos/pizzas/1.jpg">
+
+            </div>
+            <div class="pictureButtons">
+                <button type="button" id="backButton">
+                    < </button> <button type="button" id="nextButton"> > </button>
+            </div>
+            <button type="button" class="addPizza" id="addPizzaButton">Add pizza</button>
+        </form>
+        <div class="modal" id="modal">
+            <button id="modalCloseButton">Close</button>
+            <div id="modal-body">
+                <div id="pizzaMenuModal">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+<script src="index.js"> </script>
+
+</html>

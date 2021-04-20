@@ -1,0 +1,278 @@
+@import url(https://fonts.googleapis.com/css?family=Sniglet|Raleway:900);
+
+
+body, html{
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: 'Sniglet', cursive;
+  background-color:red;
+}
+h1{
+  font-weight: normal;
+  font-size: 4em;
+  font-family: 'Raleway', sans-serif;
+  margin: 0 auto;
+  margin-top: 30px;
+  width: 400px;
+  margin-bottom: 0;
+  color: white;
+  text-align: center;
+
+}
+@keyframes pizza
+{
+  0% {margin-left: -235px}
+  70% {margin-left: 100%;}
+  100% {margin-left: 100%;}
+}
+.pizza{
+  background-image: url('./photos/Picture1.png');
+  width: 250px;
+  height: 244px;
+  margin-left: -250px;
+  position: absolute;
+  animation: pizza 24s infinite linear;
+}
+
+#pizza{
+  top: 120px;
+}
+
+
+#pizza2{
+  top: 260px;
+  animation-delay: 12s;
+  -webkit-animation-delay: 12s;
+}
+
+
+h1{
+  height: 160px;
+}
+
+
+
+#form{
+  height: 100%;
+  background-color: rgb(4, 180, 4);
+  overflow: hidden;
+  position: relative;
+
+}
+
+
+form{
+  margin: 0 auto;
+  width: 500px;
+  padding-top: 40px;
+  color: white;
+  position: relative;
+}
+
+
+form :is(label, input, textarea){
+  display: block;
+}
+
+
+form :is(input, textarea,.addPizza){
+  width: 500px;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  padding: 10px;
+  font-family: 'Sniglet', cursive;
+  font-size: 1em;
+  color: #676767;
+  transition: 0.2s border;
+  border: solid 3px #98d4f3;
+  box-sizing:border-box;
+
+}
+
+
+form .heatForm{
+    width:500px;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:10px;
+
+}
+
+
+form .heatForm div{
+    width: 100%;
+    border:2px solid black;
+    justify-content: center;
+    text-align: center;
+    background-color: rgb(3, 100, 3);
+    cursor: pointer;
+    outline:none;
+}
+
+.clearButton{
+    margin-top: 5px;
+    height: auto;
+    width:100%;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+.Toppings{
+    margin:0;
+
+}
+
+
+form .Toppings ul{
+    width:100%;
+    padding: 0;
+}
+
+
+form .Toppings li{
+    display:inline;
+    background-color:rgb(160, 156, 156);
+    border-radius: 40px;
+    width:auto;
+    list-style: none;
+    cursor: pointer;
+}
+
+
+input:focus, textarea:focus{
+  border: solid 3px #77bde0;
+}
+
+textarea{
+  height: 100px;
+  resize: none;
+  overflow: auto;
+}
+form .addPizza{
+  background-color: #F90;
+  color: white;
+  height: 50px;
+  cursor: pointer;
+  margin-top: 30px;
+  font-size: 1.29em;
+  font-family: 'Sniglet', cursive;
+}
+
+form .addToppings{
+   background-color: #F90;
+   height: 30px;
+width: 200px;
+  border: none;
+  border-radius: 20px;
+   transition: 0.2s border;
+  border: solid 3px #98d4f3;
+  color:white;
+    font-family: 'Sniglet', cursive;
+    cursor: pointer;
+}
+
+.addPizza:hover,.addToppings:hover{
+    border: 4px solid white;
+}
+
+.picture{
+    display:inline-block;
+    width:100%;
+    text-align: center;
+    vertical-align: center;
+}
+
+
+.picture img{
+    width:200px;
+    height:100%;
+}
+
+
+.pictureButtons{
+width:100%;
+text-align: center;
+}
+
+
+.pictureButtons button{
+    margin:0;
+    width:60px;
+    border-radius: 25px;
+    background-color: red;
+    color:white;
+    cursor: pointer;
+}
+
+label{
+  font-size: 1.5em;
+  margin-top: 20px;
+  padding-left: 20px;
+}
+
+.modal{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%) scale(0);
+    transition: 200ms ease-in-out;
+    border:1px solid black;
+    border-radius: 10px;
+    z-index:20;
+    background-color:white;
+    height:600px;
+    width:1000px;
+    background: rgb(91,92,182);
+background: rgb(3, 100, 3);
+    overflow-y: scroll;
+}
+.modalOpen{
+    transform: translate(-50%,-50%) scale(1);
+}
+.modalOpenButton{
+    background-color: black;
+    color:white;
+    height: 40px;
+    width: 200px;
+    font-size: 20px;
+     font-family: 'Sniglet', cursive;
+     border:2px solid black;
+}
+.modalOpenButton:hover{
+    outline: 2px solid white;
+    cursor: pointer;
+}
+.pizzaMenuModalItem{
+    margin-top: 30px;
+    width: 100%;
+    text-align: center;
+}
+.pizzaMenuModalImage{
+    width:300px;
+}
+.pizzaMenuModalSpice{
+    height: 53;
+    border:2px solid red;
+}
+.pizzaMenuModalItemText{
+    font-size: 20px;
+    border-top: 2px solid white;
+    margin-bottom: 10px;
+    color:white;
+}
+#modalCloseButton{
+cursor:pointer;
+border:none;
+outline:none;
+background:none;
+font-size:3rem;
+font-weight: bold;
+position:fixed;
+color:white
+}
+#modal-body{
+    padding:10px 15px;
+}
